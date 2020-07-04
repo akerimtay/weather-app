@@ -1,4 +1,4 @@
-package com.akerimtay.weatherapp.data.model
+package com.akerimtay.weatherapp.model
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
