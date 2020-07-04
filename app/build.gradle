@@ -49,6 +49,18 @@ android {
     androidExtensions {
         experimental = true
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude("META-INF/*.kotlin_module")
+    }
 }
 
 dependencies {
@@ -66,6 +78,21 @@ dependencies {
     def dagger_version = "2.28"
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:4.7.1"
+
+    //Network
+    def retrofit_version = '2.9.0'
+    def moshi_version = '1.9.2'
+    def moshi_converter_version = '2.7.2'
+    def okhttp_version = '4.7.2'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+    implementation "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$moshi_converter_version"
 
     // Testing
     testImplementation 'junit:junit:4.13'
