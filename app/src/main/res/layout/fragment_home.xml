@@ -88,6 +88,19 @@
                     app:layout_constraintRight_toRightOf="parent"
                     tools:text="@tools:sample/lorem" />
 
+                <ImageView
+                    android:id="@+id/imgWeather"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="32dp"
+                    android:src="@{viewModel.currentWeather.getImage(context)}"
+                    app:layout_constraintBottom_toTopOf="@id/viewWeatherTemp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtLastUpdate"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/i02d_high" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/viewWeatherTemp"
                     android:layout_width="wrap_content"
@@ -106,7 +119,7 @@
                         android:textColor="@color/white"
                         android:textSize="90sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="14°" />
 

@@ -1,9 +1,11 @@
 package com.akerimtay.weatherapp.data.model
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Parcelable
 import com.akerimtay.weatherapp.R
 import com.akerimtay.weatherapp.utils.LocaleUtil
+import com.akerimtay.weatherapp.utils.weatherIconHighQ
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import java.util.*
@@ -19,6 +21,10 @@ data class CurrentWeather(
     @SerializedName("sys") val sys: Sys,
     @SerializedName("name") val cityName: String
 ) : Parcelable {
+    fun getImage(context: Context): Drawable? {
+        return context.getDrawable(weatherIconHighQ(weather.first().icon))
+    }
+
     fun getCity(context: Context): String {
         return "$cityName, ${sys.countryCode.toUpperCase(LocaleUtil.getLocale(context.resources))}"
     }
