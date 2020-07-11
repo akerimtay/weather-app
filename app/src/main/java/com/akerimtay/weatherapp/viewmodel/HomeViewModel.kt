@@ -18,13 +18,12 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
 
     init {
         (application as App).getDataComponent().inject(this)
-        getCurrentWeatherByCityName("Moscow", "Metric")
     }
 
-    fun getCurrentWeatherByCityName(cityName: String, unit: String) {
+    fun getCurrentWeatherByCityName(cityName: String) {
         viewState.value = ViewState.Loading
         addToDisposables(
-            weatherRepository.getCurrentWeatherByCityName(cityName, unit)
+            weatherRepository.getCurrentWeatherByCityName(cityName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -37,10 +36,10 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         )
     }
 
-    fun getCurrentWeatherByLocation(latitude: Double, longitude: Double, unit: String) {
+    fun getCurrentWeatherByLocation(latitude: Double, longitude: Double) {
         viewState.value = ViewState.Loading
         addToDisposables(
-            weatherRepository.getCurrentWeatherByLocation(latitude, longitude, unit)
+            weatherRepository.getCurrentWeatherByLocation(latitude, longitude)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
