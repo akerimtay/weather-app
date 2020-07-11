@@ -1,6 +1,6 @@
 package com.akerimtay.weatherapp.network
 
-import com.akerimtay.weatherapp.model.CurrentWeather
+import com.akerimtay.weatherapp.data.model.CurrentWeather
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

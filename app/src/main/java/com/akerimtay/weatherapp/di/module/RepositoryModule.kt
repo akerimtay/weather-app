@@ -1,8 +1,8 @@
 package com.akerimtay.weatherapp.di.module
 
+import com.akerimtay.weatherapp.data.repository.WeatherRepository
+import com.akerimtay.weatherapp.data.repository.WeatherRepositoryImpl
 import com.akerimtay.weatherapp.di.scope.DataScope
-import com.akerimtay.weatherapp.repository.WeatherRepository
-import com.akerimtay.weatherapp.repository.WeatherRepositoryImpl
 import dagger.Binds
 import dagger.Module
 
