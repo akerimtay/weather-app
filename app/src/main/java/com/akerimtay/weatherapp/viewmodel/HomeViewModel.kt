@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MainViewModel(application: Application) : BaseViewModel(application) {
+class HomeViewModel(application: Application) : BaseViewModel(application) {
     @Inject
     lateinit var weatherRepository: WeatherRepository
 

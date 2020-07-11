@@ -9,16 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.akerimtay.weatherapp.R
-import com.akerimtay.weatherapp.databinding.FragmentMainBinding
-import com.akerimtay.weatherapp.viewmodel.MainViewModel
+import com.akerimtay.weatherapp.databinding.FragmentHomeBinding
+import com.akerimtay.weatherapp.viewmodel.HomeViewModel
 
-class MainFragment : Fragment() {
-    private lateinit var binding: FragmentMainBinding
-    private val viewModel: MainViewModel by viewModels()
+class HomeFragment : Fragment() {
+    private lateinit var binding: FragmentHomeBinding
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         return binding.root
     }
 

@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.akerimtay.weatherapp.ui.fragment.MainFragment"
+        android:name="com.akerimtay.weatherapp.ui.fragment.HomeFragment"
         android:label=""
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_home" />
 
 </navigation>
