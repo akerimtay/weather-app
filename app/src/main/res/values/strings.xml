@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+    <string name="last_updated_with_colon">Последнее обновление:</string>
+    <string name="today">Сегодня</string>
+    <string name="yesterday">Вчера</string>
+    <string name="feels_like">Ощущается как</string>
+    <string name="connection_error">Ошибка подключения</string>
+    <string name="sunrise">Рассвет</string>
+    <string name="sunset">Закат</string>
+    <string name="wind">Ветер</string>
+    <string name="pressure">Давление</string>
+    <string name="humidity">Влажность</string>
+    <string name="cloudiness">Облачность</string>
 </resources>
