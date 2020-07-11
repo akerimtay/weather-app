@@ -12,12 +12,14 @@ class WeatherNetworkStore @Inject constructor(
     private val weatherApi: WeatherApi
 ) {
     fun getCurrentWeatherByCityName(cityName: String, unit: String): Single<CurrentWeather> {
-        val language = LocaleUtil.getLanguage(context)
+        val locale = LocaleUtil.getLocale(context.resources)
+        val language = locale.language
         return weatherApi.getCurrentWeatherByCityName(cityName, unit, language)
     }
 
     fun getCurrentWeatherByLocation(latitude: Double, longitude: Double, unit: String): Single<CurrentWeather> {
-        val language = LocaleUtil.getLanguage(context)
+        val locale = LocaleUtil.getLocale(context.resources)
+        val language = locale.language
         return weatherApi.getCurrentWeatherByLocation(latitude, longitude, unit, language)
     }
 }
