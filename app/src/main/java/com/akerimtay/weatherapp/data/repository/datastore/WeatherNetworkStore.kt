@@ -1,7 +1,7 @@
-package com.akerimtay.weatherapp.repository.datastore
+package com.akerimtay.weatherapp.data.repository.datastore
 
 import android.content.Context
-import com.akerimtay.weatherapp.model.CurrentWeather
+import com.akerimtay.weatherapp.data.model.CurrentWeather
 import com.akerimtay.weatherapp.network.WeatherApi
 import com.akerimtay.weatherapp.utils.LocaleUtil
 import io.reactivex.Single

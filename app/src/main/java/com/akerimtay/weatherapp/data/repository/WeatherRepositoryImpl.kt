@@ -1,7 +1,7 @@
-package com.akerimtay.weatherapp.repository
+package com.akerimtay.weatherapp.data.repository
 
-import com.akerimtay.weatherapp.model.CurrentWeather
-import com.akerimtay.weatherapp.repository.datastore.WeatherNetworkStore
+import com.akerimtay.weatherapp.data.model.CurrentWeather
+import com.akerimtay.weatherapp.data.repository.datastore.WeatherNetworkStore
 import io.reactivex.Single
 import javax.inject.Inject
 

@@ -1,6 +1,6 @@
-package com.akerimtay.weatherapp.repository
+package com.akerimtay.weatherapp.data.repository
 
-import com.akerimtay.weatherapp.model.CurrentWeather
+import com.akerimtay.weatherapp.data.model.CurrentWeather
 import io.reactivex.Single
 
 interface WeatherRepository {
