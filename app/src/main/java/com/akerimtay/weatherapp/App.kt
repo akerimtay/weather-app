@@ -6,6 +6,7 @@ import com.akerimtay.weatherapp.di.component.DaggerApplicationComponent
 import com.akerimtay.weatherapp.di.component.DataComponent
 import com.akerimtay.weatherapp.di.component.NetworkComponent
 import com.akerimtay.weatherapp.di.module.ApplicationModule
+import com.akerimtay.weatherapp.di.module.RoomModule
 
 class App : Application() {
     companion object {
@@ -18,6 +19,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         applicationComponent = DaggerApplicationComponent.builder()
+            .roomModule(RoomModule(this))
             .applicationModule(ApplicationModule(this))
             .build()
         applicationComponent.inject(this)

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Parcelable
 import com.akerimtay.weatherapp.R
+import com.akerimtay.weatherapp.data.db.entity.CurrentWeatherEntity
 import com.akerimtay.weatherapp.utils.LocaleUtil
 import com.akerimtay.weatherapp.utils.weatherIconHighQ
 import com.google.gson.annotations.SerializedName
@@ -21,6 +22,11 @@ data class CurrentWeather(
     @SerializedName("sys") val sys: Sys,
     @SerializedName("name") val cityName: String
 ) : Parcelable {
+    constructor(entity: CurrentWeatherEntity) : this(
+        entity.location, entity.weather, entity.main,
+        entity.wind, entity.cloudiness, entity.date, entity.sys, entity.cityName
+    )
+
     fun getImage(context: Context): Drawable? {
         return context.getDrawable(weatherIconHighQ(weather.first().icon))
     }
