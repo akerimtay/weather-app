@@ -13,8 +13,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.akerimtay.weatherapp.R
 import com.akerimtay.weatherapp.databinding.FragmentHomeBinding
+import com.akerimtay.weatherapp.extensions.setOnSingleClickListener
 import com.akerimtay.weatherapp.locationPermissionCode
 import com.akerimtay.weatherapp.utils.*
 import com.akerimtay.weatherapp.viewmodel.HomeViewModel
@@ -42,6 +44,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         swipeRefresh.setOnRefreshListener { updateUI(view) }
+        imgAdd.setOnSingleClickListener { navigateToSearch() }
 
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
@@ -138,5 +141,10 @@ class HomeFragment : Fragment() {
                 startActivityForResult(getSettingsIntent(context), locationPermissionCode)
             }
         dialog.create().show()
+    }
+
+    private fun navigateToSearch() {
+        val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+        findNavController().navigate(action)
     }
 }

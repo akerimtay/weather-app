@@ -29,6 +29,13 @@ class WeatherDatabaseStore @Inject constructor(private val currentWeatherDao: Cu
             }
     }
 
+    fun delete(cityName: String): Completable {
+        return Completable.defer {
+            currentWeatherDao.delete(cityName)
+            return@defer Completable.complete()
+        }
+    }
+
     fun deleteAll(): Completable {
         return Completable.defer {
             currentWeatherDao.deleteAll()

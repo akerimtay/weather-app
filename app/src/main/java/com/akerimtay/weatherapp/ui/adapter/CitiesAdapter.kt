@@ -12,6 +12,7 @@ import com.akerimtay.weatherapp.extensions.setOnSingleClickListener
 import com.akerimtay.weatherapp.ui.adapter.diffutil.CurrentWeatherCallback
 
 class CitiesAdapter(
+    private val onItemClickListener: (currentWeather: CurrentWeather) -> Unit,
     private val deleteClickListener: (currentWeather: CurrentWeather) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<CurrentWeather>()
@@ -31,6 +32,7 @@ class CitiesAdapter(
             holder.binding.apply {
                 weather = item
                 executePendingBindings()
+                root.setOnSingleClickListener { onItemClickListener.invoke(item) }
                 imgDelete.setOnSingleClickListener { deleteClickListener.invoke(item) }
             }
         }

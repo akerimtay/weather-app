@@ -12,4 +12,6 @@ interface WeatherRepository {
     fun getCurrentWeatherLocal(): Flowable<CurrentWeather>
 
     fun getCurrentWeatherLocalAll(): Flowable<List<CurrentWeather>>
+
+    fun deleteCurrentWeather(cityName: String): Completable
 }

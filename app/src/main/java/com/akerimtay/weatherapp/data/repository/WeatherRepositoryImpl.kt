@@ -30,4 +30,6 @@ class WeatherRepositoryImpl @Inject constructor(
     override fun getCurrentWeatherLocal() = databaseStore.getCurrentWeather()
 
     override fun getCurrentWeatherLocalAll() = databaseStore.getCurrentWeatherAll()
+
+    override fun deleteCurrentWeather(cityName: String) = databaseStore.delete(cityName)
 }
