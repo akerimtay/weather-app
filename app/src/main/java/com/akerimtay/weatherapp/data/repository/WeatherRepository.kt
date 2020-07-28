@@ -7,4 +7,6 @@ interface WeatherRepository {
     fun getCurrentWeatherByCityName(cityName: String): Single<CurrentWeather>
 
     fun getCurrentWeatherByLocation(latitude: Double, longitude: Double): Single<CurrentWeather>
+
+    fun getCurrentWeatherLocal(): Single<CurrentWeather>
 }
