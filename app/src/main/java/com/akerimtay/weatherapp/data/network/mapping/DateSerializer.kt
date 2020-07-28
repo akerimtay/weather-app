@@ -1,4 +1,4 @@
-package com.akerimtay.weatherapp.network.mapping
+package com.akerimtay.weatherapp.data.network.mapping
 
 import com.google.gson.*
 import java.lang.reflect.Type
