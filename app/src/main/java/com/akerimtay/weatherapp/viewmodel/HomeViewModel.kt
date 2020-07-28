@@ -1,6 +1,8 @@
 package com.akerimtay.weatherapp.viewmodel
 
 import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import com.akerimtay.weatherapp.App
 import com.akerimtay.weatherapp.data.model.CurrentWeather
@@ -14,10 +16,16 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     lateinit var weatherRepository: WeatherRepository
 
     val viewState = MutableLiveData<ViewState>()
-    val currentWeather = MutableLiveData<CurrentWeather>()
+    val currentWeather: LiveData<CurrentWeather>
 
     init {
         (application as App).getDataComponent().inject(this)
+
+        currentWeather = LiveDataReactiveStreams.fromPublisher(
+            weatherRepository.getCurrentWeatherLocal()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+        )
     }
 
     fun getCurrentWeatherByCityName(cityName: String) {
@@ -28,7 +36,6 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     viewState.value = ViewState.Success
-                    currentWeather.value = it
                 }, {
                     viewState.value = ViewState.Error
                     it.printStackTrace()
@@ -44,25 +51,10 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     viewState.value = ViewState.Success
-                    currentWeather.value = it
                 }, {
                     viewState.value = ViewState.Error
                     it.printStackTrace()
                 })
         )
-    }
-
-    fun getCurrentWeatherLocal() {
-        viewState.value = ViewState.Loading
-        addToDisposables(weatherRepository.getCurrentWeatherLocal()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                viewState.value = ViewState.Success
-                currentWeather.value = it
-            }, {
-                viewState.value = ViewState.Error
-                it.printStackTrace()
-            }))
     }
 }
