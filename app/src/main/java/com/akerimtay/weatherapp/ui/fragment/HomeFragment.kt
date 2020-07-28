@@ -81,7 +81,6 @@ class HomeFragment : Fragment() {
         if (isConnectedNetwork()) {
             getLastLocation()
         } else {
-            viewModel.getCurrentWeatherLocal()
             showConnectionErrorToast(requireContext())
         }
     }
@@ -103,7 +102,6 @@ class HomeFragment : Fragment() {
                 }
                 .addOnFailureListener {
                     showSimpleToast(requireContext(), it.localizedMessage)
-                    viewModel.getCurrentWeatherLocal()
                 }
         } else {
             requestPermissions(locationPermissions, locationPermissionCode)
@@ -113,7 +111,6 @@ class HomeFragment : Fragment() {
     private fun offGps() {
         showSimpleToast(requireContext(), R.string.gps_disconnected)
         requestNewLocationData()
-        viewModel.getCurrentWeatherLocal()
     }
 
     @SuppressLint("MissingPermission")

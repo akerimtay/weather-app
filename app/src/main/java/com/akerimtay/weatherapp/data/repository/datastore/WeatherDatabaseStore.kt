@@ -4,7 +4,7 @@ import com.akerimtay.weatherapp.data.db.dao.CurrentWeatherDao
 import com.akerimtay.weatherapp.data.db.entity.CurrentWeatherEntity
 import com.akerimtay.weatherapp.data.model.CurrentWeather
 import io.reactivex.Completable
-import io.reactivex.Single
+import io.reactivex.Flowable
 import javax.inject.Inject
 
 class WeatherDatabaseStore @Inject constructor(private val currentWeatherDao: CurrentWeatherDao) {
@@ -15,7 +15,7 @@ class WeatherDatabaseStore @Inject constructor(private val currentWeatherDao: Cu
         }
     }
 
-    fun getCurrentWeather(): Single<CurrentWeather> {
+    fun getCurrentWeather(): Flowable<CurrentWeather> {
         return currentWeatherDao.getCurrentWeather().map { CurrentWeather(it) }
     }
 

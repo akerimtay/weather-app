@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.akerimtay.weatherapp.data.db.entity.CurrentWeatherEntity
-import io.reactivex.Single
+import io.reactivex.Flowable
 
 @Dao
 interface CurrentWeatherDao {
@@ -13,7 +13,7 @@ interface CurrentWeatherDao {
     fun insert(data: CurrentWeatherEntity)
 
     @Query("SELECT * FROM current_weather")
-    fun getCurrentWeather(): Single<CurrentWeatherEntity>
+    fun getCurrentWeather(): Flowable<CurrentWeatherEntity>
 
     @Query("DELETE FROM current_weather")
     fun deleteAll()
