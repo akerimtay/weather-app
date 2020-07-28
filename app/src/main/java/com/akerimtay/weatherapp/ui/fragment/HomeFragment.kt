@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        getLastLocation()
+        initWeather()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
         when (requestCode) {
             locationPermissionCode -> {
                 if (verifyGrantResults(grantResults)) {
-                    getLastLocation()
+                    initWeather()
                 } else {
                     if (!shouldShowRequestPermissionRationale(locationPermissions)) {
                         showDialogForEnablePermission(requireContext())
@@ -73,7 +73,16 @@ class HomeFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            locationPermissionCode -> getLastLocation()
+            locationPermissionCode -> initWeather()
+        }
+    }
+
+    private fun initWeather() {
+        if (isConnectedNetwork()) {
+            getLastLocation()
+        } else {
+            viewModel.getCurrentWeatherLocal()
+            showConnectionErrorToast(requireContext())
         }
     }
 
@@ -94,6 +103,7 @@ class HomeFragment : Fragment() {
                 }
                 .addOnFailureListener {
                     showSimpleToast(requireContext(), it.localizedMessage)
+                    viewModel.getCurrentWeatherLocal()
                 }
         } else {
             requestPermissions(locationPermissions, locationPermissionCode)
@@ -103,6 +113,7 @@ class HomeFragment : Fragment() {
     private fun offGps() {
         showSimpleToast(requireContext(), R.string.gps_disconnected)
         requestNewLocationData()
+        viewModel.getCurrentWeatherLocal()
     }
 
     @SuppressLint("MissingPermission")

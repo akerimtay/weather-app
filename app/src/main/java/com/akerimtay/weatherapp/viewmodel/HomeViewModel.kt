@@ -51,4 +51,18 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                 })
         )
     }
+
+    fun getCurrentWeatherLocal() {
+        viewState.value = ViewState.Loading
+        addToDisposables(weatherRepository.getCurrentWeatherLocal()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                viewState.value = ViewState.Success
+                currentWeather.value = it
+            }, {
+                viewState.value = ViewState.Error
+                it.printStackTrace()
+            }))
+    }
 }
