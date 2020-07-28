@@ -19,6 +19,16 @@ class WeatherDatabaseStore @Inject constructor(private val currentWeatherDao: Cu
         return currentWeatherDao.getCurrentWeather().map { CurrentWeather(it) }
     }
 
+    fun getCurrentWeatherAll(): Flowable<List<CurrentWeather>> {
+        return currentWeatherDao.getCurrentWeatherAll()
+            .flatMap { list ->
+                return@flatMap Flowable.fromIterable(list)
+                    .map { entity -> return@map CurrentWeather(entity) }
+                    .toList()
+                    .toFlowable()
+            }
+    }
+
     fun deleteAll(): Completable {
         return Completable.defer {
             currentWeatherDao.deleteAll()

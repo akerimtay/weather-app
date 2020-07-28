@@ -12,8 +12,11 @@ interface CurrentWeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(data: CurrentWeatherEntity)
 
-    @Query("SELECT * FROM current_weather")
+    @Query("SELECT * FROM current_weather ORDER BY timestamp DESC")
     fun getCurrentWeather(): Flowable<CurrentWeatherEntity>
+
+    @Query("SELECT * FROM current_weather")
+    fun getCurrentWeatherAll(): Flowable<List<CurrentWeatherEntity>>
 
     @Query("DELETE FROM current_weather")
     fun deleteAll()

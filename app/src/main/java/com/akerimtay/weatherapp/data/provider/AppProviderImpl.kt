@@ -1,7 +1,7 @@
 package com.akerimtay.weatherapp.data.provider
 
 import android.content.Context
-import com.akerimtay.weatherapp.currentCityName
+import com.akerimtay.weatherapp.defaultCurrentCityName
 
 class AppProviderImpl(context: Context) : AppProvider {
     companion object {
@@ -12,7 +12,7 @@ class AppProviderImpl(context: Context) : AppProvider {
     private val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
     override fun getCurrentCityName(): String? {
-        return sharedPreferences.getString(KEY_CURRENT_CITY_NAME, currentCityName)
+        return sharedPreferences.getString(KEY_CURRENT_CITY_NAME, defaultCurrentCityName)
     }
 
     override fun setCurrentCityName(value: String?) {

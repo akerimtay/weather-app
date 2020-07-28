@@ -28,21 +28,6 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         )
     }
 
-    fun getCurrentWeatherByCityName(cityName: String) {
-        viewState.value = ViewState.Loading
-        addToDisposables(
-            weatherRepository.getCurrentWeatherByCityName(cityName)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    viewState.value = ViewState.Success
-                }, {
-                    viewState.value = ViewState.Error
-                    it.printStackTrace()
-                })
-        )
-    }
-
     fun getCurrentWeatherByLocation(latitude: Double, longitude: Double) {
         viewState.value = ViewState.Loading
         addToDisposables(
