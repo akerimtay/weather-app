@@ -1,7 +1,7 @@
 package com.akerimtay.weatherapp.data.provider
 
 interface AppProvider {
-    fun getCurrentCityName(): String?
+    fun getAutoLocate(): Boolean
 
-    fun setCurrentCityName(value: String?)
+    fun setAutoLocate(value: Boolean)
 }

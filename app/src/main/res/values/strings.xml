@@ -22,4 +22,5 @@
     <string name="go_to_settings">Перейти в настройки</string>
     <string name="not_now">Не сейчас</string>
     <string name="enter_your_city_name">Введите название города</string>
+    <string name="auto_locate">Автоопределение</string>
 </resources>

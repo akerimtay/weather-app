@@ -22,7 +22,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         (application as App).getDataComponent().inject(this)
 
         currentWeather = LiveDataReactiveStreams.fromPublisher(
-            weatherRepository.getCurrentWeatherLocal()
+            weatherRepository.getCurrentWeather()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
         )
@@ -31,7 +31,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     fun getCurrentWeatherByLocation(latitude: Double, longitude: Double) {
         viewState.value = ViewState.Loading
         addToDisposables(
-            weatherRepository.getCurrentWeatherByLocation(latitude, longitude)
+            weatherRepository.loadCurrentWeatherByLocation(latitude, longitude)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

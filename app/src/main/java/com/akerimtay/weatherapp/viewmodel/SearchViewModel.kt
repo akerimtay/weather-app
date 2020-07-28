@@ -22,7 +22,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
         (application as App).getDataComponent().inject(this)
 
         cities = LiveDataReactiveStreams.fromPublisher(
-            weatherRepository.getCurrentWeatherLocalAll()
+            weatherRepository.getCities()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
         )
@@ -31,7 +31,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
     fun loadCurrentWeather(cityName: String) {
         viewState.value = ViewState.Loading
         addToDisposables(
-            weatherRepository.getCurrentWeatherByCityName(cityName)
+            weatherRepository.loadCurrentWeatherByCityName(cityName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
