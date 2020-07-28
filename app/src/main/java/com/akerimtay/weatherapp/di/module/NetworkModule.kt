@@ -1,9 +1,9 @@
 package com.akerimtay.weatherapp.di.module
 
 import com.akerimtay.weatherapp.BuildConfig
+import com.akerimtay.weatherapp.data.network.interceptor.AuthInterceptor
+import com.akerimtay.weatherapp.data.network.mapping.DateSerializer
 import com.akerimtay.weatherapp.di.scope.NetworkScope
-import com.akerimtay.weatherapp.network.interceptor.AuthInterceptor
-import com.akerimtay.weatherapp.network.mapping.DateSerializer
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

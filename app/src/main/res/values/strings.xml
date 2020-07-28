@@ -11,4 +11,14 @@
     <string name="pressure">Давление</string>
     <string name="humidity">Влажность</string>
     <string name="cloudiness">Облачность</string>
+    <string name="gps_disconnected">Невозможно получить ваше местоположение. Пожалуйста включите геолокацию чтобы получить новые данные</string>
+
+    // Permissions
+    <string name="location_permission_not_granted">Вы запретили доступ к вашему местоположению.</string>
+    <string name="location_permission_rationale_title">Не удается получить доступ к вашему местоположению</string>
+    <string name="location_permission_rationale_body">Разрешить приложению доступ к вашему местоположению</string>
+    <string name="settings_location_permission_rationale_body">Нет доступа к вашему местоположению. Включите разрешение в настройках устройства.</string>
+
+    <string name="go_to_settings">Перейти в настройки</string>
+    <string name="not_now">Не сейчас</string>
 </resources>

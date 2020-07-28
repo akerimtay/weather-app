@@ -1,4 +1,4 @@
-package com.akerimtay.weatherapp.network.interceptor
+package com.akerimtay.weatherapp.data.network.interceptor
 
 import com.akerimtay.weatherapp.BuildConfig
 import okhttp3.Interceptor

@@ -1,4 +1,4 @@
-package com.akerimtay.weatherapp.network
+package com.akerimtay.weatherapp.data.network
 
 import com.akerimtay.weatherapp.data.model.CurrentWeather
 import io.reactivex.Single

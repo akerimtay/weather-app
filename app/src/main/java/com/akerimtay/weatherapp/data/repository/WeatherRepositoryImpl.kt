@@ -8,11 +8,11 @@ import javax.inject.Inject
 class WeatherRepositoryImpl @Inject constructor(private val networkStore: WeatherNetworkStore) :
     WeatherRepository {
 
-    override fun getCurrentWeatherByCityName(cityName: String, unit: String): Single<CurrentWeather> {
-        return networkStore.getCurrentWeatherByCityName(cityName, unit)
+    override fun getCurrentWeatherByCityName(cityName: String): Single<CurrentWeather> {
+        return networkStore.getCurrentWeatherByCityName(cityName)
     }
 
-    override fun getCurrentWeatherByLocation(latitude: Double, longitude: Double, unit: String): Single<CurrentWeather> {
-        return networkStore.getCurrentWeatherByLocation(latitude, longitude, unit)
+    override fun getCurrentWeatherByLocation(latitude: Double, longitude: Double): Single<CurrentWeather> {
+        return networkStore.getCurrentWeatherByLocation(latitude, longitude)
     }
 }
