@@ -11,11 +11,9 @@ import com.akerimtay.weatherapp.databinding.ItemCityBinding
 import com.akerimtay.weatherapp.extensions.setOnSingleClickListener
 import com.akerimtay.weatherapp.ui.adapter.diffutil.CurrentWeatherCallback
 
-class CitiesAdapter(
-    private val onItemClickListener: (currentWeather: CurrentWeather) -> Unit,
-    private val deleteClickListener: (currentWeather: CurrentWeather) -> Unit
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CitiesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<CurrentWeather>()
+    private var eventsListener: CityEventsListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,8 +30,8 @@ class CitiesAdapter(
             holder.binding.apply {
                 weather = item
                 executePendingBindings()
-                root.setOnSingleClickListener { onItemClickListener.invoke(item) }
-                imgDelete.setOnSingleClickListener { deleteClickListener.invoke(item) }
+                root.setOnSingleClickListener { eventsListener?.onItemClick(item) }
+                imgDelete.setOnSingleClickListener { eventsListener?.onDeleteClick(item) }
             }
         }
     }
@@ -45,5 +43,15 @@ class CitiesAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
+    fun setOnEventsListener(listener: CityEventsListener?) {
+        eventsListener = listener
+    }
+
     class CityHolder(val binding: ItemCityBinding) : RecyclerView.ViewHolder(binding.root)
+
+    interface CityEventsListener {
+        fun onItemClick(currentWeather: CurrentWeather)
+
+        fun onDeleteClick(currentWeather: CurrentWeather)
+    }
 }

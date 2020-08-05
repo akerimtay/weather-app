@@ -9,13 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.akerimtay.weatherapp.R
+import com.akerimtay.weatherapp.data.model.CurrentWeather
 import com.akerimtay.weatherapp.databinding.FragmentSearchBinding
 import com.akerimtay.weatherapp.extensions.setOnSingleClickListener
 import com.akerimtay.weatherapp.ui.adapter.CitiesAdapter
 import com.akerimtay.weatherapp.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_search.*
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), CitiesAdapter.CityEventsListener {
     private lateinit var binding: FragmentSearchBinding
     private val viewModel: SearchViewModel by viewModels()
     private lateinit var adapter: CitiesAdapter
@@ -34,16 +35,21 @@ class SearchFragment : Fragment() {
         imgBack.setOnSingleClickListener { activity?.onBackPressed() }
         imgSearch.setOnSingleClickListener { search() }
 
-        adapter = CitiesAdapter({
-
-        }, {
-            viewModel.delete(it.cityName)
-        })
+        adapter = CitiesAdapter()
+        adapter.setOnEventsListener(this)
         recyclerView.adapter = adapter
 
         viewModel.cities.observe(viewLifecycleOwner, Observer {
             adapter.updateItems(it)
         })
+    }
+
+    override fun onItemClick(currentWeather: CurrentWeather) {
+
+    }
+
+    override fun onDeleteClick(currentWeather: CurrentWeather) {
+        viewModel.delete(currentWeather.cityName)
     }
 
     private fun search() {
