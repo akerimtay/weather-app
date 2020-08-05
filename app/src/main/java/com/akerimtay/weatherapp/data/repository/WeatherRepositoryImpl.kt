@@ -9,7 +9,7 @@ class WeatherRepositoryImpl @Inject constructor(
     private val networkStore: WeatherNetworkStore,
     private val databaseStore: WeatherDatabaseStore
 ) : WeatherRepository {
-    override fun loadCurrentWeatherByCityName(cityName: String): Completable {
+    override fun loadWeatherByCityName(cityName: String): Completable {
         return Completable.defer {
             networkStore.getCurrentWeatherByCityName(cityName)
                 .flatMapCompletable {
@@ -18,7 +18,7 @@ class WeatherRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun loadCurrentWeatherByLocation(latitude: Double, longitude: Double): Completable {
+    override fun loadWeatherByLocation(latitude: Double, longitude: Double): Completable {
         return Completable.defer {
             networkStore.getCurrentWeatherByLocation(latitude, longitude)
                 .flatMapCompletable {
@@ -29,7 +29,7 @@ class WeatherRepositoryImpl @Inject constructor(
 
     override fun getCurrentWeather() = databaseStore.getCurrentWeather()
 
-    override fun getCities() = databaseStore.getCurrentWeatherAll()
+    override fun getWeathers() = databaseStore.getWeathers()
 
-    override fun deleteCurrentWeather(cityName: String) = databaseStore.delete(cityName)
+    override fun deleteWeather(cityName: String) = databaseStore.delete(cityName)
 }

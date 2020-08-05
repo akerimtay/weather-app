@@ -31,7 +31,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     fun getCurrentWeatherByLocation(latitude: Double, longitude: Double) {
         viewState.value = ViewState.Loading
         addToDisposables(
-            weatherRepository.loadCurrentWeatherByLocation(latitude, longitude)
+            weatherRepository.loadWeatherByLocation(latitude, longitude)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

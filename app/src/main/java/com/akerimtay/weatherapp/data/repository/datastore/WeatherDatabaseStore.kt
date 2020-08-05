@@ -7,20 +7,20 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import javax.inject.Inject
 
-class WeatherDatabaseStore @Inject constructor(private val currentWeatherDao: CurrentWeatherDao) {
+class WeatherDatabaseStore @Inject constructor(private val weatherDao: CurrentWeatherDao) {
     fun insert(currentWeather: CurrentWeather): Completable {
         return Completable.defer {
-            currentWeatherDao.insert(CurrentWeatherEntity(currentWeather))
+            weatherDao.insert(CurrentWeatherEntity(currentWeather))
             return@defer Completable.complete()
         }
     }
 
     fun getCurrentWeather(): Flowable<CurrentWeather> {
-        return currentWeatherDao.getCurrentWeather().map { CurrentWeather(it) }
+        return weatherDao.getCurrentWeather().map { CurrentWeather(it) }
     }
 
-    fun getCurrentWeatherAll(): Flowable<List<CurrentWeather>> {
-        return currentWeatherDao.getCurrentWeatherAll()
+    fun getWeathers(): Flowable<List<CurrentWeather>> {
+        return weatherDao.getWeathers()
             .flatMap { list ->
                 return@flatMap Flowable.fromIterable(list)
                     .map { entity -> return@map CurrentWeather(entity) }
@@ -31,14 +31,14 @@ class WeatherDatabaseStore @Inject constructor(private val currentWeatherDao: Cu
 
     fun delete(cityName: String): Completable {
         return Completable.defer {
-            currentWeatherDao.delete(cityName)
+            weatherDao.delete(cityName)
             return@defer Completable.complete()
         }
     }
 
     fun deleteAll(): Completable {
         return Completable.defer {
-            currentWeatherDao.deleteAll()
+            weatherDao.deleteAll()
             return@defer Completable.complete()
         }
     }

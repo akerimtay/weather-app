@@ -16,7 +16,7 @@ interface CurrentWeatherDao {
     fun getCurrentWeather(): Flowable<CurrentWeatherEntity>
 
     @Query("SELECT * FROM current_weather")
-    fun getCurrentWeatherAll(): Flowable<List<CurrentWeatherEntity>>
+    fun getWeathers(): Flowable<List<CurrentWeatherEntity>>
 
     @Query("DELETE FROM current_weather WHERE city_name = :cityName")
     fun delete(cityName: String)

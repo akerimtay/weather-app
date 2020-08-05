@@ -15,29 +15,29 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
     @Inject
     lateinit var weatherRepository: WeatherRepository
 
-    val viewState = MutableLiveData<ViewState>()
+    val actionState = MutableLiveData<ActionState>()
     val cities: LiveData<List<CurrentWeather>>
 
     init {
         (application as App).getDataComponent().inject(this)
 
         cities = LiveDataReactiveStreams.fromPublisher(
-            weatherRepository.getCities()
+            weatherRepository.getWeathers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
         )
     }
 
     fun loadCurrentWeather(cityName: String) {
-        viewState.value = ViewState.Loading
+        actionState.value = ActionState.Processing
         addToDisposables(
-            weatherRepository.loadCurrentWeatherByCityName(cityName)
+            weatherRepository.loadWeatherByCityName(cityName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    viewState.value = ViewState.Success
+                    actionState.value = ActionState.Successful
                 }, {
-                    viewState.value = ViewState.Error
+                    actionState.value = ActionState.Failure
                     it.printStackTrace()
                 })
         )
@@ -45,7 +45,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
 
     fun delete(cityName: String) {
         addToDisposables(
-            weatherRepository.deleteCurrentWeather(cityName)
+            weatherRepository.deleteWeather(cityName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

@@ -5,13 +5,13 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 
 interface WeatherRepository {
-    fun loadCurrentWeatherByCityName(cityName: String): Completable
+    fun loadWeatherByCityName(cityName: String): Completable
 
-    fun loadCurrentWeatherByLocation(latitude: Double, longitude: Double): Completable
+    fun loadWeatherByLocation(latitude: Double, longitude: Double): Completable
 
     fun getCurrentWeather(): Flowable<CurrentWeather>
 
-    fun getCities(): Flowable<List<CurrentWeather>>
+    fun getWeathers(): Flowable<List<CurrentWeather>>
 
-    fun deleteCurrentWeather(cityName: String): Completable
+    fun deleteWeather(cityName: String): Completable
 }
