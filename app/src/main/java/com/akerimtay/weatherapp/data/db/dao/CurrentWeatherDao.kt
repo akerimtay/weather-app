@@ -14,7 +14,10 @@ interface CurrentWeatherDao {
     fun insert(data: CurrentWeatherEntity)
 
     @Query("SELECT * FROM current_weather ORDER BY timestamp DESC")
-    fun getCurrentWeather(): Flowable<CurrentWeatherEntity>
+    fun getCurrentWeatherFlowable(): Flowable<CurrentWeatherEntity>
+
+    @Query("SELECT * FROM current_weather ORDER BY timestamp DESC")
+    fun getCurrentWeatherSingle(): Single<CurrentWeatherEntity>
 
     @Query("SELECT * FROM current_weather")
     fun getWeathersFlowable(): Flowable<List<CurrentWeatherEntity>>

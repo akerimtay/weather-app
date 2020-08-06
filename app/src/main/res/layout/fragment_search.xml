@@ -74,17 +74,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Switch
-            android:id="@+id/switchAutoLocate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/auto_locate"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/viewSearch" />
-
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
@@ -92,7 +81,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/switchAutoLocate">
+            app:layout_constraintTop_toBottomOf="@id/viewSearch">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

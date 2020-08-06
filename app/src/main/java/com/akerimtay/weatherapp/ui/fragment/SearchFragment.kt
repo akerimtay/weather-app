@@ -47,7 +47,8 @@ class SearchFragment : Fragment(), CitiesAdapter.CityEventsListener {
     }
 
     override fun onItemClick(currentWeather: CurrentWeather) {
-
+        viewModel.loadCurrentWeather(currentWeather.cityName)
+        activity?.onBackPressed()
     }
 
     override fun onDeleteClick(currentWeather: CurrentWeather) {
@@ -56,7 +57,8 @@ class SearchFragment : Fragment(), CitiesAdapter.CityEventsListener {
 
     private fun search() {
         val cityName = inputCityName.text.trim().toString()
-        inputCityName.setText("")
         viewModel.loadCurrentWeather(cityName)
+        inputCityName.setText("")
+        activity?.onBackPressed()
     }
 }

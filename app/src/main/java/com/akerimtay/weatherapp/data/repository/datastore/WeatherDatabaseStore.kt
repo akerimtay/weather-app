@@ -16,8 +16,12 @@ class WeatherDatabaseStore @Inject constructor(private val weatherDao: CurrentWe
         }
     }
 
-    fun getCurrentWeather(): Flowable<CurrentWeather> {
-        return weatherDao.getCurrentWeather().map { CurrentWeather(it) }
+    fun getCurrentWeatherFlowable(): Flowable<CurrentWeather> {
+        return weatherDao.getCurrentWeatherFlowable().map { CurrentWeather(it) }
+    }
+
+    fun getCurrentWeatherSingle(): Single<CurrentWeather> {
+        return weatherDao.getCurrentWeatherSingle().map { CurrentWeather(it) }
     }
 
     fun getWeathersFlowable(): Flowable<List<CurrentWeather>> {
