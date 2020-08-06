@@ -61,7 +61,9 @@ class SearchFragment : Fragment(), CitiesAdapter.CityEventsListener {
 
     private fun search() {
         val cityName = inputCityName.text.trim().toString()
-        viewModel.searchByCityName(cityName)
+        if (cityName.isNotEmpty()) {
+            viewModel.searchByCityName(cityName)
+        }
         inputCityName.setText("")
     }
 }
