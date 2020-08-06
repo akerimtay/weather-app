@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Прогноз погоды</string>
     <string name="last_updated_with_colon">Последнее обновление:</string>
     <string name="today">Сегодня</string>
@@ -24,4 +26,5 @@
     <string name="enter_your_city_name">Введите название города</string>
     <string name="auto_locate">Автоопределение</string>
     <string name="all">Все</string>
+
 </resources>

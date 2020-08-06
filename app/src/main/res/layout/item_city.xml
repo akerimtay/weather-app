@@ -54,7 +54,7 @@
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:lines="1"
-            android:text="@{weather.descriptionAndTemp}"
+            android:text="@{weather.getDescriptionAndTemp(context)}"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
