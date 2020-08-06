@@ -17,7 +17,7 @@
         android:background="?android:selectableItemBackground"
         android:descendantFocusability="blocksDescendants"
         android:padding="8dp"
-        tools:background="@color/colorPrimaryDark">
+        tools:background="@drawable/background_main_gradient">
 
         <ImageView
             android:id="@+id/imgWeather"
