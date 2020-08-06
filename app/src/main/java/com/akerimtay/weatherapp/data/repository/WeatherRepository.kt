@@ -1,12 +1,23 @@
 package com.akerimtay.weatherapp.data.repository
 
 import com.akerimtay.weatherapp.data.model.CurrentWeather
+import io.reactivex.Completable
 import io.reactivex.Flowable
 
 interface WeatherRepository {
-    fun getCurrentWeatherByCityName(cityName: String): Flowable<CurrentWeather>
 
-    fun getCurrentWeatherByLocation(latitude: Double, longitude: Double): Flowable<CurrentWeather>
+    fun loadWeatherByCityName(cityName: String): Completable
 
-    fun getCurrentWeatherLocal(): Flowable<CurrentWeather>
+    fun loadWeatherByLocation(latitude: Double, longitude: Double): Completable
+
+    fun getCurrentWeather(): Flowable<CurrentWeather>
+
+    fun updateWeather(): Completable
+
+    fun updateWeathers(): Completable
+
+    fun getWeathers(): Flowable<List<CurrentWeather>>
+
+    fun deleteWeather(cityName: String): Completable
+
 }

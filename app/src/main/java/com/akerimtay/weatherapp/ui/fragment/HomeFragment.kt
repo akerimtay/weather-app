@@ -13,8 +13,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.akerimtay.weatherapp.R
 import com.akerimtay.weatherapp.databinding.FragmentHomeBinding
+import com.akerimtay.weatherapp.extensions.setOnSingleClickListener
 import com.akerimtay.weatherapp.locationPermissionCode
 import com.akerimtay.weatherapp.utils.*
 import com.akerimtay.weatherapp.viewmodel.HomeViewModel
@@ -22,6 +24,7 @@ import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
+
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -41,7 +44,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        swipeRefresh.setOnRefreshListener { updateUI(view) }
+        swipeRefresh.setOnRefreshListener { initWeather() }
+        imgAll.setOnSingleClickListener { navigateToSearch() }
+        imgAutoLocate.setOnSingleClickListener { getLastLocation() }
 
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
@@ -58,7 +63,7 @@ class HomeFragment : Fragment() {
         when (requestCode) {
             locationPermissionCode -> {
                 if (verifyGrantResults(grantResults)) {
-                    initWeather()
+                    getLastLocation()
                 } else {
                     if (!shouldShowRequestPermissionRationale(locationPermissions)) {
                         showDialogForEnablePermission(requireContext())
@@ -73,22 +78,16 @@ class HomeFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            locationPermissionCode -> initWeather()
+            locationPermissionCode -> getLastLocation()
         }
     }
 
     private fun initWeather() {
-        if (isConnectedNetwork()) {
-            getLastLocation()
-        } else {
+        if (!isConnectedNetwork()) {
             showConnectionErrorToast(requireContext())
+        } else {
+            viewModel.updateWeather()
         }
-    }
-
-    private fun updateUI(view: View) {
-        viewModel.currentWeather.value?.let {
-            viewModel.getCurrentWeatherByLocation(it.location.latitude, it.location.longitude)
-        } ?: showConnectionErrorToast(view.context)
     }
 
     @SuppressLint("MissingPermission")
@@ -139,4 +138,10 @@ class HomeFragment : Fragment() {
             }
         dialog.create().show()
     }
+
+    private fun navigateToSearch() {
+        val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+        findNavController().navigate(action)
+    }
+
 }

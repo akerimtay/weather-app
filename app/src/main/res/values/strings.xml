@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WeatherApp</string>
+    <string name="app_name">Прогноз погоды</string>
     <string name="last_updated_with_colon">Последнее обновление:</string>
     <string name="today">Сегодня</string>
     <string name="yesterday">Вчера</string>
@@ -21,4 +21,7 @@
 
     <string name="go_to_settings">Перейти в настройки</string>
     <string name="not_now">Не сейчас</string>
+    <string name="enter_your_city_name">Введите название города</string>
+    <string name="auto_locate">Автоопределение</string>
+    <string name="all">Все</string>
 </resources>

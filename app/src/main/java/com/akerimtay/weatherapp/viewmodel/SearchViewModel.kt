@@ -7,33 +7,32 @@ import androidx.lifecycle.MutableLiveData
 import com.akerimtay.weatherapp.App
 import com.akerimtay.weatherapp.data.model.CurrentWeather
 import com.akerimtay.weatherapp.data.repository.WeatherRepository
-import com.akerimtay.weatherapp.defaultCurrentCityName
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class HomeViewModel(application: Application) : BaseViewModel(application) {
-
+class SearchViewModel(application: Application) : BaseViewModel(application) {
     @Inject
     lateinit var weatherRepository: WeatherRepository
 
+    val actionState = MutableLiveData<ActionState>()
     val viewState = MutableLiveData<ViewState>()
-    val currentWeather: LiveData<CurrentWeather>
+    val weathers: LiveData<List<CurrentWeather>>
 
     init {
         (application as App).getDataComponent().inject(this)
 
-        currentWeather = LiveDataReactiveStreams.fromPublisher(
-            weatherRepository.getCurrentWeather()
+        weathers = LiveDataReactiveStreams.fromPublisher(
+            weatherRepository.getWeathers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
         )
     }
 
-    fun getCurrentWeatherByLocation(latitude: Double, longitude: Double) {
+    fun updateWeathers() {
         viewState.value = ViewState.Loading
         addToDisposables(
-            weatherRepository.loadWeatherByLocation(latitude, longitude)
+            weatherRepository.updateWeathers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -46,34 +45,29 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun loadCurrentWeather(cityName: String) {
-        viewState.value = ViewState.Loading
+        actionState.value = ActionState.Processing
         addToDisposables(
             weatherRepository.loadWeatherByCityName(cityName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    viewState.value = ViewState.Success
+                    actionState.value = ActionState.Successful
                 }, {
-                    viewState.value = ViewState.Error
+                    actionState.value = ActionState.Failure
                     it.printStackTrace()
                 })
         )
     }
 
-    fun updateWeather() {
-        viewState.value = ViewState.Loading
+    fun delete(cityName: String) {
         addToDisposables(
-            weatherRepository.updateWeather()
+            weatherRepository.deleteWeather(cityName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    viewState.value = ViewState.Success
                 }, {
-                    viewState.value = ViewState.Error
-                    loadCurrentWeather(defaultCurrentCityName)
                     it.printStackTrace()
                 })
         )
     }
-
 }

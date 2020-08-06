@@ -35,13 +35,33 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imgSearch"
+                    android:id="@+id/imgAutoLocate"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="?attr/actionBarItemBackground"
                     android:clickable="true"
+                    android:contentDescription="@string/auto_locate"
+                    android:descendantFocusability="blocksDescendants"
                     android:focusable="true"
-                    android:src="@drawable/ic_baseline_search_24_white"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_baseline_my_location_24_white"
+                    app:layout_constraintBottom_toBottomOf="@id/txtCityName"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/txtCityName" />
+
+                <ImageView
+                    android:id="@+id/imgAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/actionBarItemBackground"
+                    android:clickable="true"
+                    android:contentDescription="@string/all"
+                    android:descendantFocusability="blocksDescendants"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_baseline_format_list_bulleted_24_white"
                     app:layout_constraintBottom_toBottomOf="@id/txtCityName"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/txtCityName" />

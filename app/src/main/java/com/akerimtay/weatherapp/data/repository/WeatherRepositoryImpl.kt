@@ -1,9 +1,8 @@
 package com.akerimtay.weatherapp.data.repository
 
-import com.akerimtay.weatherapp.data.model.CurrentWeather
 import com.akerimtay.weatherapp.data.repository.datastore.WeatherDatabaseStore
 import com.akerimtay.weatherapp.data.repository.datastore.WeatherNetworkStore
-import io.reactivex.Flowable
+import io.reactivex.Completable
 import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(
@@ -11,23 +10,44 @@ class WeatherRepositoryImpl @Inject constructor(
     private val databaseStore: WeatherDatabaseStore
 ) : WeatherRepository {
 
-    override fun getCurrentWeatherByCityName(cityName: String): Flowable<CurrentWeather> {
-        return networkStore.getCurrentWeatherByCityName(cityName)
-            .flatMap {
-                databaseStore.deleteAll()
-                    .andThen(databaseStore.insert(it))
-                    .andThen(databaseStore.getCurrentWeather())
+    override fun loadWeatherByCityName(cityName: String): Completable {
+        return Completable.defer {
+            networkStore.getCurrentWeatherByCityName(cityName)
+                .flatMapCompletable { weather ->
+                    return@flatMapCompletable databaseStore.insert(weather)
+                }
+        }
+    }
+
+    override fun loadWeatherByLocation(latitude: Double, longitude: Double): Completable {
+        return Completable.defer {
+            networkStore.getCurrentWeatherByLocation(latitude, longitude)
+                .flatMapCompletable { weather ->
+                    return@flatMapCompletable databaseStore.insert(weather)
+                }
+        }
+    }
+
+    override fun updateWeather(): Completable {
+        return databaseStore.getCurrentWeatherSingle()
+            .flatMapCompletable { weather ->
+                return@flatMapCompletable loadWeatherByCityName(weather.cityName)
             }
     }
 
-    override fun getCurrentWeatherByLocation(latitude: Double, longitude: Double): Flowable<CurrentWeather> {
-        return networkStore.getCurrentWeatherByLocation(latitude, longitude)
-            .flatMap {
-                databaseStore.deleteAll()
-                    .andThen(databaseStore.insert(it))
-                    .andThen(databaseStore.getCurrentWeather())
+    override fun updateWeathers(): Completable {
+        return databaseStore.getWeathersSingle()
+            .flattenAsObservable { weathers -> return@flattenAsObservable weathers }
+            .flatMapCompletable { entity ->
+                networkStore.getCurrentWeatherByCityName(entity.cityName)
+                    .flatMapCompletable { weather -> databaseStore.insert(weather) }
             }
     }
 
-    override fun getCurrentWeatherLocal() = databaseStore.getCurrentWeather()
+    override fun getCurrentWeather() = databaseStore.getCurrentWeatherFlowable()
+
+    override fun getWeathers() = databaseStore.getWeathersFlowable()
+
+    override fun deleteWeather(cityName: String) = databaseStore.delete(cityName)
+
 }

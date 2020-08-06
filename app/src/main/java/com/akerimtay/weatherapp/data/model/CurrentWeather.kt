@@ -43,7 +43,7 @@ data class CurrentWeather(
         return "$minTemp°/$maxTemp° $feelsLikeString $feelsLikeInt°"
     }
 
-    fun getWeatherDescription() = weather[0].description
+    fun getWeatherDescription() = weather.first().description
 
     fun getTemp() = "${main.temperature.toInt()}°"
 
@@ -54,4 +54,6 @@ data class CurrentWeather(
     fun getHumidity() = "${main.humidity.toInt()} %"
 
     fun getCloudinessValue() = "${cloudiness.value} %"
+
+    fun getDescriptionAndTemp() = "${getWeatherDescription()} ${getTemp()}"
 }

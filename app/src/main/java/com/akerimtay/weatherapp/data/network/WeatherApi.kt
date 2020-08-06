@@ -1,7 +1,7 @@
 package com.akerimtay.weatherapp.data.network
 
 import com.akerimtay.weatherapp.data.model.CurrentWeather
-import io.reactivex.Flowable
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -11,7 +11,7 @@ interface WeatherApi {
         @Query("q") cityName: String,
         @Query("units") unit: String,
         @Query("lang") language: String?
-    ): Flowable<CurrentWeather>
+    ): Single<CurrentWeather>
 
     @GET("/data/2.5/weather")
     fun getCurrentWeatherByLocation(
@@ -19,5 +19,5 @@ interface WeatherApi {
         @Query("lon") longitude: Double,
         @Query("units") unit: String,
         @Query("lang") language: String?
-    ): Flowable<CurrentWeather>
+    ): Single<CurrentWeather>
 }
