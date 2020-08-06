@@ -44,7 +44,19 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
         )
     }
 
-    fun loadCurrentWeather(cityName: String) {
+    fun loadWeatherByCityName(cityName: String) {
+        addToDisposables(
+            weatherRepository.loadWeatherByCityName(cityName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                }, {
+                    it.printStackTrace()
+                })
+        )
+    }
+
+    fun searchByCityName(cityName: String) {
         actionState.value = ActionState.Processing
         addToDisposables(
             weatherRepository.loadWeatherByCityName(cityName)
