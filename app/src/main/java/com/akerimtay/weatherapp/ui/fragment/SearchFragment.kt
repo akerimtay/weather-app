@@ -39,9 +39,11 @@ class SearchFragment : Fragment(), CitiesAdapter.CityEventsListener {
         adapter.setOnEventsListener(this)
         recyclerView.adapter = adapter
 
-        viewModel.cities.observe(viewLifecycleOwner, Observer {
+        viewModel.weathers.observe(viewLifecycleOwner, Observer {
             adapter.updateItems(it)
         })
+
+        viewModel.updateWeathers()
     }
 
     override fun onItemClick(currentWeather: CurrentWeather) {

@@ -16,15 +16,27 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
     lateinit var weatherRepository: WeatherRepository
 
     val actionState = MutableLiveData<ActionState>()
-    val cities: LiveData<List<CurrentWeather>>
+    val weathers: LiveData<List<CurrentWeather>>
 
     init {
         (application as App).getDataComponent().inject(this)
 
-        cities = LiveDataReactiveStreams.fromPublisher(
+        weathers = LiveDataReactiveStreams.fromPublisher(
             weatherRepository.getWeathers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+        )
+    }
+
+    fun updateWeathers() {
+        addToDisposables(
+            weatherRepository.updateWeathers()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                }, {
+                    it.printStackTrace()
+                })
         )
     }
 

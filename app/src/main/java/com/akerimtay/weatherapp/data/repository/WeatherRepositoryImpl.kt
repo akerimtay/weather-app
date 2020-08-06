@@ -27,9 +27,18 @@ class WeatherRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun updateWeathers(): Completable {
+        return databaseStore.getWeathersSingle()
+            .flattenAsObservable { weathers -> return@flattenAsObservable weathers }
+            .flatMapCompletable { entity ->
+                networkStore.getCurrentWeatherByCityName(entity.cityName)
+                    .flatMapCompletable { weather -> databaseStore.insert(weather) }
+            }
+    }
+
     override fun getCurrentWeather() = databaseStore.getCurrentWeather()
 
-    override fun getWeathers() = databaseStore.getWeathers()
+    override fun getWeathers() = databaseStore.getWeathersFlowable()
 
     override fun deleteWeather(cityName: String) = databaseStore.delete(cityName)
 }

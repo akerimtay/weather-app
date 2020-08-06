@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.akerimtay.weatherapp.data.db.entity.CurrentWeatherEntity
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface CurrentWeatherDao {
@@ -16,7 +17,10 @@ interface CurrentWeatherDao {
     fun getCurrentWeather(): Flowable<CurrentWeatherEntity>
 
     @Query("SELECT * FROM current_weather")
-    fun getWeathers(): Flowable<List<CurrentWeatherEntity>>
+    fun getWeathersFlowable(): Flowable<List<CurrentWeatherEntity>>
+
+    @Query("SELECT * FROM current_weather")
+    fun getWeathersSingle(): Single<List<CurrentWeatherEntity>>
 
     @Query("DELETE FROM current_weather WHERE city_name = :cityName")
     fun delete(cityName: String)

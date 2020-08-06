@@ -5,6 +5,7 @@ import com.akerimtay.weatherapp.data.db.entity.CurrentWeatherEntity
 import com.akerimtay.weatherapp.data.model.CurrentWeather
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class WeatherDatabaseStore @Inject constructor(private val weatherDao: CurrentWeatherDao) {
@@ -19,14 +20,21 @@ class WeatherDatabaseStore @Inject constructor(private val weatherDao: CurrentWe
         return weatherDao.getCurrentWeather().map { CurrentWeather(it) }
     }
 
-    fun getWeathers(): Flowable<List<CurrentWeather>> {
-        return weatherDao.getWeathers()
+    fun getWeathersFlowable(): Flowable<List<CurrentWeather>> {
+        return weatherDao.getWeathersFlowable()
             .flatMap { list ->
                 return@flatMap Flowable.fromIterable(list)
                     .map { entity -> return@map CurrentWeather(entity) }
                     .toList()
                     .toFlowable()
             }
+    }
+
+    fun getWeathersSingle(): Single<List<CurrentWeather>> {
+        return weatherDao.getWeathersSingle()
+            .flattenAsObservable { weathers -> return@flattenAsObservable weathers }
+            .map { entity -> return@map CurrentWeather(entity) }
+            .toList()
     }
 
     fun delete(cityName: String): Completable {
