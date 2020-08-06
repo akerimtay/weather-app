@@ -2,6 +2,7 @@ package com.akerimtay.weatherapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -29,9 +30,13 @@ class CitiesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (holder is CityHolder) {
             holder.binding.apply {
                 weather = item
+                progressBar.isVisible = false
                 executePendingBindings()
                 root.setOnSingleClickListener { eventsListener?.onItemClick(item) }
-                imgDelete.setOnSingleClickListener { eventsListener?.onDeleteClick(item) }
+                imgDelete.setOnSingleClickListener {
+                    progressBar.isVisible = true
+                    eventsListener?.onDeleteClick(item)
+                }
             }
         }
     }

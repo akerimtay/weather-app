@@ -34,6 +34,10 @@ class SearchFragment : Fragment(), CitiesAdapter.CityEventsListener {
 
         imgBack.setOnSingleClickListener { activity?.onBackPressed() }
         imgSearch.setOnSingleClickListener { search() }
+        inputCityName.setOnEditorActionListener { _, _, _ ->
+            search()
+            return@setOnEditorActionListener true
+        }
 
         adapter = CitiesAdapter()
         adapter.setOnEventsListener(this)
@@ -59,6 +63,5 @@ class SearchFragment : Fragment(), CitiesAdapter.CityEventsListener {
         val cityName = inputCityName.text.trim().toString()
         viewModel.loadCurrentWeather(cityName)
         inputCityName.setText("")
-        activity?.onBackPressed()
     }
 }

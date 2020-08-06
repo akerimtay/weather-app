@@ -10,3 +10,11 @@ fun View.setOnSingleClickListener(l: (View?) -> Unit) {
         }
     })
 }
+
+fun View.gone(shouldBeGone: Boolean) {
+    visibility = if (shouldBeGone) {
+        View.GONE
+    } else {
+        View.VISIBLE
+    }
+}

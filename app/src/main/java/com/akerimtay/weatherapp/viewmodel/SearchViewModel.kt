@@ -16,6 +16,7 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
     lateinit var weatherRepository: WeatherRepository
 
     val actionState = MutableLiveData<ActionState>()
+    val viewState = MutableLiveData<ViewState>()
     val weathers: LiveData<List<CurrentWeather>>
 
     init {
@@ -29,12 +30,15 @@ class SearchViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun updateWeathers() {
+        viewState.value = ViewState.Loading
         addToDisposables(
             weatherRepository.updateWeathers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    viewState.value = ViewState.Success
                 }, {
+                    viewState.value = ViewState.Error
                     it.printStackTrace()
                 })
         )

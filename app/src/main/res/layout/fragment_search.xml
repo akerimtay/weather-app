@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.akerimtay.weatherapp.viewmodel.ViewState" />
+
         <variable
             name="viewModel"
             type="com.akerimtay.weatherapp.viewmodel.SearchViewModel" />
@@ -15,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_home_gradient"
+        android:fitsSystemWindows="true"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +36,7 @@
                 android:clickable="true"
                 android:descendantFocusability="blocksDescendants"
                 android:focusable="true"
+                android:padding="8dp"
                 android:src="@drawable/ic_baseline_arrow_back_24_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -45,8 +49,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:hint="@string/enter_your_city_name"
+                android:imeOptions="actionSearch"
                 android:importantForAutofill="no"
                 android:inputType="textAutoCorrect|textCapSentences"
+                android:singleLine="true"
                 android:textColor="@color/white"
                 android:textColorHint="@color/grey"
                 android:textSize="14sp"
@@ -66,6 +72,7 @@
                 android:clickable="true"
                 android:descendantFocusability="blocksDescendants"
                 android:focusable="true"
+                android:padding="8dp"
                 android:src="@drawable/ic_baseline_search_24_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -80,6 +87,7 @@
             android:layout_height="0dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
+            app:gone="@{viewModel.viewState == ViewState.Loading}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewSearch">
 
@@ -94,6 +102,25 @@
                 tools:listitem="@layout/item_city" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            app:gone="@{viewModel.viewState != ViewState.Loading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewSearch">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
