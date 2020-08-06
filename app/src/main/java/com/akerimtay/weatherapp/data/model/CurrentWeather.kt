@@ -5,6 +5,9 @@ import android.graphics.drawable.Drawable
 import android.os.Parcelable
 import com.akerimtay.weatherapp.R
 import com.akerimtay.weatherapp.data.db.entity.CurrentWeatherEntity
+import com.akerimtay.weatherapp.extensions.toPressureUnit
+import com.akerimtay.weatherapp.extensions.toSpeedUnit
+import com.akerimtay.weatherapp.extensions.toTemperatureUnit
 import com.akerimtay.weatherapp.utils.LocaleUtil
 import com.akerimtay.weatherapp.utils.weatherIconHighQ
 import com.google.gson.annotations.SerializedName
@@ -36,24 +39,34 @@ data class CurrentWeather(
     }
 
     fun getMinMaxFeelsTemp(context: Context): String {
+        val unit = LocaleUtil.getLocale(context.resources).toTemperatureUnit()
         val minTemp = main.minTemperature.toInt()
         val maxTemp = main.maxTemperature.toInt()
         val feelsLikeInt = main.feelsLike.toInt()
         val feelsLikeString = context.getString(R.string.feels_like)
-        return "$minTemp°/$maxTemp° $feelsLikeString $feelsLikeInt°"
+        return "$minTemp°$unit/$maxTemp°$unit $feelsLikeString $feelsLikeInt°$unit"
     }
 
     fun getWeatherDescription() = weather.first().description
 
-    fun getTemp() = "${main.temperature.toInt()}°"
+    fun getTemp(context: Context): String? {
+        val unit = LocaleUtil.getLocale(context.resources).toTemperatureUnit()
+        return "${main.temperature.toInt()}°$unit"
+    }
 
-    fun getWindSpeed() = "${wind.speed} м/с"
+    fun getWindSpeed(context: Context): String? {
+        val unit = LocaleUtil.getLocale(context.resources).toSpeedUnit()
+        return "${wind.speed} $unit"
+    }
 
-    fun getPressure() = "${main.pressure.toInt()} Па"
+    fun getPressure(context: Context): String? {
+        val unit = LocaleUtil.getLocale(context.resources).toPressureUnit()
+        return "${main.pressure.toInt()} $unit"
+    }
 
     fun getHumidity() = "${main.humidity.toInt()} %"
 
     fun getCloudinessValue() = "${cloudiness.value} %"
 
-    fun getDescriptionAndTemp() = "${getWeatherDescription()} ${getTemp()}"
+    fun getDescriptionAndTemp(context: Context) = "${getWeatherDescription()} ${getTemp(context)}"
 }

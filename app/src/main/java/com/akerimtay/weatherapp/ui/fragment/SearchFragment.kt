@@ -51,7 +51,7 @@ class SearchFragment : Fragment(), CitiesAdapter.CityEventsListener {
     }
 
     override fun onItemClick(currentWeather: CurrentWeather) {
-        viewModel.loadCurrentWeather(currentWeather.cityName)
+        viewModel.loadWeatherByCityName(currentWeather.cityName)
         activity?.onBackPressed()
     }
 
@@ -61,7 +61,7 @@ class SearchFragment : Fragment(), CitiesAdapter.CityEventsListener {
 
     private fun search() {
         val cityName = inputCityName.text.trim().toString()
-        viewModel.loadCurrentWeather(cityName)
+        viewModel.searchByCityName(cityName)
         inputCityName.setText("")
     }
 }

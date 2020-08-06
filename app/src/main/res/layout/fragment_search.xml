@@ -7,6 +7,8 @@
 
         <import type="com.akerimtay.weatherapp.viewmodel.ViewState" />
 
+        <import type="com.akerimtay.weatherapp.viewmodel.ActionState" />
+
         <variable
             name="viewModel"
             type="com.akerimtay.weatherapp.viewmodel.SearchViewModel" />
@@ -57,27 +59,51 @@
                 android:textColorHint="@color/grey"
                 android:textSize="14sp"
                 app:layout_constraintLeft_toRightOf="@id/imgBack"
-                app:layout_constraintRight_toLeftOf="@id/imgSearch"
+                app:layout_constraintRight_toLeftOf="@id/viewAction"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <requestFocus />
 
             </EditText>
 
-            <ImageView
-                android:id="@+id/imgSearch"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/viewAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?attr/actionBarItemBackground"
-                android:clickable="true"
-                android:descendantFocusability="blocksDescendants"
-                android:focusable="true"
-                android:padding="8dp"
-                android:src="@drawable/ic_baseline_search_24_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/actionBarItemBackground"
+                    android:clickable="true"
+                    android:descendantFocusability="blocksDescendants"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_baseline_search_24_white"
+                    app:gone="@{viewModel.actionState == ActionState.Processing}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="8dp"
+                    app:gone="@{viewModel.actionState != ActionState.Processing}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

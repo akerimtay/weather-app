@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Weather App</string>
+    <string name="last_updated_with_colon">Last update:</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="feels_like">Feels like</string>
+    <string name="connection_error">Internet connection error</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="wind">Wind</string>
+    <string name="pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
+    <string name="cloudiness">Cloudiness</string>
+    <string name="gps_disconnected">Unable to get your location. Please turn on geolocation to get new data</string>
+
+    // Permissions
+    <string name="location_permission_not_granted">You have denied access to your location.</string>
+    <string name="location_permission_rationale_title">Can not access your location</string>
+    <string name="location_permission_rationale_body">Allow the app to access your location</string>
+    <string name="settings_location_permission_rationale_body">No access to your location. Turn on the resolution in the device settings.</string>
+
+    <string name="go_to_settings">Go to settings</string>
+    <string name="not_now">Not now</string>
+    <string name="enter_your_city_name">Enter the name of the city</string>
+    <string name="auto_locate">Auto-locate</string>
+    <string name="all">All</string>
+
+</resources>

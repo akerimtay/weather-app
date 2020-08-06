@@ -126,7 +126,7 @@
                     android:id="@+id/wind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{weather.windSpeed}"
+                    android:text="@{weather.getWindSpeed(context)}"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     tools:text="15 м/с" />
@@ -171,7 +171,7 @@
                     android:id="@+id/pressure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{weather.pressure}"
+                    android:text="@{weather.getPressure(context)}"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     tools:text="1004 Па" />
